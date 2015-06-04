@@ -1,0 +1,33 @@
+{
+  "name": "Customer",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "mongodb": {
+      "collection": "C2C_CUSTOMER_COLLECTION"
+    },
+    "validateUpsert": true
+  },
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "userName": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "address": {
+      "type": "object"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

@@ -1,0 +1,32 @@
+{
+  "name": "order",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "orderId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "orderDate": {
+      "type": "date"
+    },
+    "orderStatus": {
+      "type": "string"
+    },
+    "products": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
