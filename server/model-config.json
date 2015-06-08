@@ -14,37 +14,38 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "mongoDs",
+    "public":false
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongoDs",
     "public": false
   },
-  "Customer": {
+  "Customer":{
+    "dataSource": "mongoDs",
+    "public":true
+  },
+  "Order": {
     "dataSource": "mongoDs",
     "public": true
   },
-  "order": {
+  "Product": {
     "dataSource": "mongoDs",
     "public": true
   },
-  "product": {
-    "dataSource": "mongoDs",
-    "public": true
-  },
-  "shopCart": {
+  "ShopCart": {
     "dataSource": "mongoDs",
     "public": true
   }

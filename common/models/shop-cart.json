@@ -1,8 +1,11 @@
 {
-  "name": "shopCart",
+  "name": "ShopCart",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
+    "mongodb": {
+      "collection": "C2C_SHOP_CART_COLLECTION"
+    },
     "validateUpsert": true
   },
   "properties": {

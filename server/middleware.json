@@ -3,14 +3,7 @@
     "loopback#favicon": {}
   },
   "initial": {
-    "compression": {},
-    "cors": {
-      "params": {
-        "origin": true,
-        "credentials": true,
-        "maxAge": 86400
-      }
-    }
+    "compression": {}
   },
   "session": {
   },
@@ -19,8 +12,14 @@
   "parse": {
   },
   "routes": {
+    "loopback#status": {
+      "paths": "/status"
+    }
   },
   "files": {
+    "loopback#static": {
+      "params": "$!../client"
+    }
   },
   "final": {
     "loopback#urlNotFound": {}

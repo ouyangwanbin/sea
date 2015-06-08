@@ -1,8 +1,11 @@
 {
-  "name": "order",
+  "name": "Order",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
+    "mongodb": {
+      "collection": "C2C_ORDER_COLLECTION"
+    },
     "validateUpsert": true
   },
   "properties": {

@@ -1,0 +1,20 @@
+.navbar .nav > li > a {
+  float: none;
+  color: white;
+}
+
+#header{
+  background-color:#B94629;
+}
+
+#productName{
+  color:#B94629;
+}
+
+#productDescription{
+  color:black;
+}
+
+.unit{
+  width:50px;
+}

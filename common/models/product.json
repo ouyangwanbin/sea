@@ -1,8 +1,11 @@
 {
-  "name": "product",
+  "name": "Product",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
+    "mongodb": {
+      "collection": "C2C_PRODUCT_COLLECTION"
+    },
     "validateUpsert": true
   },
   "properties": {

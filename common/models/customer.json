@@ -1,6 +1,6 @@
 {
   "name": "Customer",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "mongodb": {
@@ -11,10 +11,6 @@
   "properties": {
     "userId": {
       "type": "string"
-    },
-    "userName": {
-      "type": "string",
-      "required": true
     },
     "password": {
       "type": "string"
