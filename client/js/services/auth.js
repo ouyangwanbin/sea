@@ -35,6 +35,15 @@ angular
                 .$promise;
         }
 
+        function logout( email ) {
+            return Customer
+                .logout()
+                .$promise
+                .then(function() {
+                    $rootScope.currentUser = null;
+                });
+        }
+
         return {
             login: login,
             logout: logout,

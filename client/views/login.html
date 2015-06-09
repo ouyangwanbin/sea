@@ -1,26 +1,26 @@
 <section>
-  <form name="form" ng-submit="login()">
-    <fieldset>
-      <legend>Login form</legend>
-
-      <div class="form-group">
-        <label>Email</label>
-        <input type="text" ng-model="customer.email">
-        <p class="hint" ng-show="form.email.$error.required && submitted">Email is
-            required</p>
-      </div>
-
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" ng-model="customer.password">
-        <p class="hint" ng-show="form.password.$error.required && submitted">
-            Password is required</p>
-      </div>
-
-      <div class="actions">
-        <label></label>
-        <button>Login</button>
-      </div>
-    </fieldset>
-  </form>
-<section>
+    <div class="container">
+        <h2>Login</h2>
+        <form class="form-horizontal" name="userForm" role="form" ng-submit="login()">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" ng-model="customer.email">
+                    <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : userFrom.error }">
+                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="customer.password">
+                    <p ng-show="userFrom.error" class="help-block">login failed : user and password do not match.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <section>

@@ -5,7 +5,9 @@ angular
             $scope.login = function() {
                 AuthService.login($scope.customer.email, $scope.customer.password)
                     .then(function() {
-                        // $state.go('add-review');
+                        $state.go('products');
+                    },function(){
+                        $scope.userFrom.error = true;
                     });
             };
         }
@@ -14,7 +16,7 @@ angular
         function($scope, AuthService, $state) {
             AuthService.logout()
                 .then(function() {
-                    $state.go('all-reviews');
+                    $state.go('products');
                 });
         }
     ])
@@ -22,6 +24,10 @@ angular
         function($scope, AuthService, $state) {
 
             $scope.register = function() {
+                if( $scope.customer.password != $scope.customer.confirm.password ){
+                  $scope.userForm.error = true ;
+                  return;
+                }
                 AuthService.register($scope.customer.email, $scope.customer.password)
                     .then(function() {
                         $state.transitionTo('sign-up-success');

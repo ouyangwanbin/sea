@@ -9,34 +9,21 @@
 </head>
 
 <body>
-    <!--
-    <header>
-
-      <h2 ng-show="currentUser">Hello {{currentUser.email}}</h2>
-      <nav>
-        <ul>
-          <li ng-hide="currentUser">
-            <a ui-sref="sign-up" ui-sref-active="active">Sign up</a>
-          </li>
-          <li ng-hide="currentUser">
-            <a ui-sref="login" ui-sref-active="active">Log in</a>
-          </li>
-          <li ng-show="currentUser">
-            <a ui-sref="logout" ui-sref-active="active">Log out</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    -->
+    
     <nav class="navbar navbar-default" id="header">
         <div class="container" >
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" style="color:white">Fresh Sea food</a>
             </div>
             <div>
+                <ul class="nav navbar-nav" ng-show="currentUser">
+                  <li><a href="javascript:void(0);">Hello , {{currentUser.user.email}}</a></li> 
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li ng-show="currentUser"><a ui-sref="reset-password"><span class="glyphicon glyphicon-edit"></span> Reset password</a></li>
+                    <li ng-show="currentUser"><a ui-sref="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li ng-hide="currentUser"><a ui-sref="sign-up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li ng-hide="currentUser"><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
             </div>
         </div>
