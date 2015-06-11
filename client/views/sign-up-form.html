@@ -2,11 +2,12 @@
     <div class="container">
         <h2>Sign Up</h2>
         <form class="form-horizontal" name="userForm" role="form" ng-submit="register()">
-            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.error || (userForm.email.$invalid && !userForm.email.$pristine) }">
                 <label class="control-label col-sm-2" for="email" >Email:</label>
                 <div class="col-sm-10" >
                     <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" ng-model="customer.email">
                     <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                    <p ng-show="userForm.email.error" class="help-block">{{ userForm.email.error.msg }}</p>
                 </div>
             </div>
             <div class="form-group">
@@ -20,7 +21,7 @@
                 <label class="control-label col-sm-2" for="pwd">confirm Password:</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" id="pwd" placeholder="Enter confirm password" ng-model="customer.confirm.password">
-                    <p ng-show="userForm.error" class="help-block">password does not match.</p>
+                    <p ng-show="userForm.error" class="help-block">{{userForm.error.msg}}</p>
                 </div>
             </div>
 

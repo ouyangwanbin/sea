@@ -35,18 +35,23 @@ angular
                 .$promise;
         }
 
-        function logout( email ) {
+        function checkExist( email ) {
             return Customer
-                .logout()
+                .count({
+                    where:{
+                            email:email
+                        }
+                })
                 .$promise
-                .then(function() {
-                    $rootScope.currentUser = null;
+                .then(function( response ) {
+                    return  response.count ;
                 });
         }
 
         return {
             login: login,
             logout: logout,
-            register: register
+            register: register,
+            checkExist:checkExist
         };
     }]);
