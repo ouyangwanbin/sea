@@ -1,7 +1,9 @@
 angular
     .module('app', [
         'ui.router',
-        'lbServices'
+        'lbServices',
+        'ngCookies',
+        'ui.bootstrap'
     ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
         $urlRouterProvider) {
@@ -32,6 +34,10 @@ angular
                 url: '/products',
                 templateUrl: 'views/products.html',
                 controller:'ProductController'
+            }).state('my-orders', {
+                url: '/orders',
+                templateUrl: 'views/my-orders.html',
+                controller:'OrderController'
             });
         $urlRouterProvider.otherwise('products');
     }])

@@ -1,7 +1,7 @@
 angular
     .module('app')
-    .factory('AuthService', ['Customer', '$q', '$rootScope', function(Customer, $q,
-        $rootScope) {
+    .factory('AuthService', ['Customer', '$q', '$rootScope', '$cookieStore' , function(Customer, $q,
+        $rootScope , $cookieStore) {
         function login(email, password) {
             return Customer
                 .login({
@@ -14,6 +14,7 @@ angular
                         user: response.user,
                         tokenId: response.id
                     };
+                    $cookieStore.put( 'currentUser' , $rootScope.currentUser );
                 });
         }
 
@@ -23,6 +24,7 @@ angular
                 .$promise
                 .then(function() {
                     $rootScope.currentUser = null;
+                    $cookieStore.remove( 'currentUser' );
                 });
         }
 

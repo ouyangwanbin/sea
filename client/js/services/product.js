@@ -1,10 +1,12 @@
 angular
     .module('app')
-    .factory('ProductService', ['Product', '$q', '$rootScope', function(Product, $q,
-        $rootScope) {
+    .factory('ProductService', ['Product', '$q', '$rootScope','$cookieStore',function(Product, $q,
+        $rootScope,$cookieStore ) {
         function getAllproducts( ) {
-            return Product
-                .find();
+            if( $cookieStore.get( 'currentUser' ) ){
+                $rootScope.currentUser = $cookieStore.get( 'currentUser' );
+            }
+            return Product.find( ).$promise;
         }
         return {
             getAllproducts: getAllproducts

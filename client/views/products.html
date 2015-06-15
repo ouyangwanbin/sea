@@ -21,21 +21,22 @@
                         <div class="row">
                             <div class="col-md-4 lead">
                                 <label>prices:</label>
-                                <mark>{{product.unitPrice}}</mark>
+                                <mark>${{product.unitPrice}}</mark>
+                                <label>/lb</label>
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-md-4 lead">
                                     <div class="form-group">
-                                        <label for="unit">unit(lb):
-                                            <input type="text" id="unit" class="unit">
+                                        <label for="orderUnit">unit(lb):
+                                            <input type="number" id="orderUnit" class="unit" ng-model="product.orderUnit">
                                         </label>
                                     </div>
                                 </div>
                         </div>
                         <div class="row">
                         	<div class="col-md-4">
-                        		<button type="button" class="btn btn-primary">Order</button>
+                        		<button type="button" class="btn btn-primary" ng-click="order( product )">Order</button>
                         	</div>
                         </div>
                     </div>
@@ -43,7 +44,9 @@
             </div>
         </div>
     </div>
-
-
+<!--
+    <div ng-include="'views/modal.html'"></div>
+    <div ng-include="'views/orderModal.html'"></div>
+-->
 </section>
 

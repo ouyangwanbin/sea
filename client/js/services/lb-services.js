@@ -3588,8 +3588,8 @@ module
   .config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('LoopBackAuthRequestInterceptor');
   }])
-  .factory('LoopBackAuthRequestInterceptor', [ '$q', 'LoopBackAuth',
-    function($q, LoopBackAuth) {
+  .factory('LoopBackAuthRequestInterceptor', [ '$q', 'LoopBackAuth' ,'$cookieStore',
+    function($q, LoopBackAuth , $cookieStore) {
       return {
         'request': function(config) {
 
@@ -3597,10 +3597,11 @@ module
           if (config.url.substr(0, urlBase.length) !== urlBase) {
             return config;
           }
-
-          if (LoopBackAuth.accessTokenId) {
-            config.headers[authHeader] = LoopBackAuth.accessTokenId;
-          } else if (config.__isGetCurrentUser__) {
+          if (LoopBackAuth.accessTokenId && LoopBackAuth.currentUserData ) {
+                config.headers[authHeader] = LoopBackAuth.accessTokenId;
+          } else if( $cookieStore.get('currentUser') ){
+                config.headers[authHeader] = $cookieStore.get('currentUser')['tokenId'];
+          }else if (config.__isGetCurrentUser__) {
             // Return a stub 401 error for User.getCurrent() when
             // there is no user logged in
             var res = {

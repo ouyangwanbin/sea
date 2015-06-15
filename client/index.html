@@ -17,7 +17,8 @@
             </div>
             <div>
                 <ul class="nav navbar-nav" ng-show="currentUser">
-                  <li><a href="javascript:void(0);">Hello , {{currentUser.user.email}}</a></li> 
+                  <li><a href="javascript:void(0);">Hello , {{currentUser.user.email}}</a></li>
+                  <li><a ui-sref="my-orders">My orders</a></li>  
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-show="currentUser"><a ui-sref="reset-password"><span class="glyphicon glyphicon-edit"></span> Reset password</a></li>
@@ -29,17 +30,24 @@
         </div>
     </nav>
     <main ui-view></main>
+    <!--
     <script src="vendor/jquery/dist/jquery.js"></script>
     <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+-->
     <script src="vendor/angular.js"></script>
     <script src="vendor/angular-resource.js"></script>
     <script src="vendor/angular-ui-router.js"></script>
+    <script src="vendor/angular-cookies.js"></script>
+    <script src="vendor/ui-bootstrap-tpls.js"></script>
     <script src="js/app.js"></script>
     <script src="js/services/lb-services.js"></script>
     <script src="js/controllers/auth.js"></script>
     <script src="js/controllers/product.js"></script>
+    <script src="js/controllers/order.js"></script>
     <script src="js/services/auth.js"></script>
     <script src="js/services/product.js"></script>
+    <script src="js/services/order.js"></script>
+    <script src="js/services/utils.js"></script>
 </body>
 
 </html>
