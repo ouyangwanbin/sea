@@ -50,12 +50,14 @@ angular
         }
     ]).controller('ModalInstanceCtrl',
         function($scope, $modalInstance, product , orderService) {
+            debugger;
             $scope.product = product;
             $scope.confirm = function( ) {
             	var order = {};
             	order.userId = product.userId;
-            	order.productId = product.id;
+            	order.productName = product.productName;
             	order.unit = product.orderUnit;
+                order.unitPrice = product.unitPrice;
             	order.orderDate = new Date();
             	order.orderStatus = "ordered";
             	orderService.createOrder(order);

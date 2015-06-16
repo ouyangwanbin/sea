@@ -1,21 +1,26 @@
 angular
     .module('app')
-    .factory('OrderService', ['Order', '$q', function(Order, $q ) {
+    .factory('OrderService', ['Order', '$q',  function(Order, $q ) {
         function createOrder( order ){
             return Order.create( order ).$promise;
         }
 
         function getOrdersByUserId( userId ){
-            debugger;
-            return Order.find( {
+            return Order.find({filter:{
                     where:{
                             userId:userId
                         }
-                }).$promise;
+                    }
+            }).$promise;
+        }
+
+        function removeOrderById ( order ){
+            return Order.deleteById( order ).$promise;
         }
         
         return {
             createOrder: createOrder,
-            getOrdersByUserId:getOrdersByUserId
+            getOrdersByUserId:getOrdersByUserId,
+            removeOrderById:removeOrderById
         };
     }]);

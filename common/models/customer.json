@@ -23,7 +23,13 @@
         }
     },
     "validations": [],
-    "relations": {},
+    "relations": {
+        "orders":{
+            "type":"hasMany",
+            "model":"Order",
+            "foreignKey":"userId"
+        }
+    },
     "acls": [{
         "permission": "ALLOW",
         "principalType": "ROLE",

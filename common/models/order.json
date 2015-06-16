@@ -1,35 +1,50 @@
 {
-  "name": "Order",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "mongodb": {
-      "collection": "C2C_ORDER_COLLECTION"
+    "name": "Order",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "mongodb": {
+            "collection": "C2C_ORDER_COLLECTION"
+        },
+        "validateUpsert": true
     },
-    "validateUpsert": true
-  },
-  "properties": {
-    "orderId": {
-      "type": "string"
+    "properties": {
+        "orderId": {
+            "type": "string"
+        },
+        "userId": {
+            "type": "string",
+            "required": true
+        },
+        "orderDate": {
+            "type": "date"
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "productName": {
+            "type": "string"
+        }
     },
-    "userId": {
-      "type": "string",
-      "required": true
+    "validations": [],
+    "relations": {
+        "customer": {
+            "type": "belongsTo",
+            "model": "Customer",
+            "foreignKey": ""
+        }
     },
-    "orderDate": {
-      "type": "date"
-    },
-    "orderStatus": {
-      "type": "string"
-    },
-    "products": {
-      "type": [
-        "object"
-      ]
-    }
-  },
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": []
+    "acls": [{
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+    }, {
+        "accessType": "EXECUTE",
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW",
+        "property": ["create", "find" , "deleteById"]
+    }],
+    "methods": []
 }

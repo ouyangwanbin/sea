@@ -1,3 +1,32 @@
 <section>
-  <div></div>
+    <div class="container">
+        <h2>My Orders</h2>
+        <table class="table table-bordered table-hover" >
+            <thead>
+                <tr style="background-color:#B94629">
+                    <th>Product Name</th>
+                    <th>Order Unit(lb)</th>
+                    <th>Order Time</th>
+                    <th>Order Status</th>
+                    <th>Total fee</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orders">
+                    <td>{{order.productName}}</td>
+                    <td>{{order.unit}}</td>
+                    <td>{{order.orderDate}}</td>
+                    <td>{{order.orderStatus}}</td>
+                    <td>${{order.unit * order.unitPrice}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="removeOrder( order )">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
 </section>
