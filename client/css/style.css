@@ -3,6 +3,10 @@
   color: white;
 }
 
+.table th,td 
+{
+    text-align: center;
+}
 #header{
   background-color:#B94629;
 }

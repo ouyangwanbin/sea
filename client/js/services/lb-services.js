@@ -1668,8 +1668,8 @@ module.factory(
           },
           interceptor: {
             response: function(response) {
-              var accessToken = response.data;
-              LoopBackAuth.setUser(accessToken.id, accessToken.userId, accessToken.user);
+              var data = response.data;
+              LoopBackAuth.setUser(data.id, data.userId );
               LoopBackAuth.rememberMe = response.config.params.rememberMe !== false;
               LoopBackAuth.save();
               return response.resource;
