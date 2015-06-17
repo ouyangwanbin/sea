@@ -37,7 +37,33 @@ angular
         }
     ]).controller('UpdateUserController', ['$scope', '$rootScope', 'User', '$state',
         function($scope, $rootScope, User, $state) {
-            $scope.restPassword = function() {
+            $scope.user = {};
+            $scope.user.address = $rootScope.currentUser.user.address;
+            $scope.$watch(function(scope) {
+                return scope.user.newPassword;
+            }, function(newValue, oldValue) {
+                if (newValue !== $scope.user.confirmPassword) {
+                    $scope.userForm.error = {
+                        'msg': 'Password does not match.'
+                    };
+                } else {
+                    $scope.userForm.error = null;
+                }
+
+            });
+
+            $scope.$watch(function(scope) {
+                return scope.user.confirmPassword;
+            }, function(newValue, oldValue) {
+                if (newValue !== $scope.user.newPassword) {
+                    $scope.userForm.error = {
+                        'msg': 'Password does not match.'
+                    };
+                } else {
+                    $scope.userForm.error = null;
+                }
+            })
+            $scope.updateUser = function() {
                 if ($scope.user.newPassword != $scope.user.confirmPassword) {
                     $scope.userForm.error = {
                         'msg': 'Password does not match.'
@@ -47,12 +73,15 @@ angular
                 var user = {};
                 user.userId = $rootScope.currentUser.user.id;
                 user.email = $rootScope.currentUser.user.email;
-                user.password = $scope.user.newPassword;
+                if( $scope.user.newPassword ){
+                    user.password = $scope.user.newPassword;
+                }
+                user.address = $scope.user.address;
                 User.prototype$updateAttributes({
                     id: user.userId
                 }, user, function(response) {
-                    console.log(response);
-                    $state.transitionTo('reset-password-success');
+                    $rootScope.currentUser.user = response;
+                    $state.transitionTo('update-user-success');
                 }, function() {
                     $state.go("error");
                 });
@@ -86,12 +115,9 @@ angular
                 } else {
                     $scope.userForm.error = null;
                 }
-            })
+            });
             $scope.register = function() {
-                // if( $scope.user.password != $scope.user.confirm.password ){
-                //   $scope.userForm.error = { 'msg' : 'Password does not match.' } ;
-                //   return;
-                // }
+
                 var user = {};
                 user.email = $scope.user.email;
                 User.count({
@@ -104,6 +130,7 @@ angular
                         return;
                     } else {
                         user.password = $scope.user.password;
+                        user.address = $scope.user.address;
                         User.create(user, function() {
                             $state.transitionTo('sign-up-success');
                         }, function() {

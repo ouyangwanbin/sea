@@ -32,6 +32,9 @@ angular
                             },
                             Order: function() {
                                 return Order;
+                            },
+                            user: function( ){
+                            	return $rootScope.currentUser.user;
                             }
                         }
                     });
@@ -50,8 +53,9 @@ angular
             }
         }
     ]).controller('ModalInstanceCtrl',
-        function($scope, $modalInstance, product, Order) {
+        function($scope, $modalInstance, product, Order , user) {
             $scope.product = product;
+            $scope.user = user;
             $scope.confirm = function() {
                 var order = {};
                 order.userId = product.userId;
@@ -60,6 +64,7 @@ angular
                 order.unitPrice = product.unitPrice;
                 order.orderDate = new Date();
                 order.orderStatus = "ordered";
+                order.address = $scope.user.address;
                 Order.create(order, function() {
                     $modalInstance.close();
                 }, function() {

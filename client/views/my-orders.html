@@ -9,6 +9,7 @@
                     <th>Order Time</th>
                     <th>Order Status</th>
                     <th>Total fee</th>
+                    <th>Order Address</th>
                     <th>Operation</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                     <td>{{order.orderDate}}</td>
                     <td>{{order.orderStatus}}</td>
                     <td>${{order.unit * order.unitPrice}}</td>
+                    <td>{{order.address}}</td>
                     <td>
                         <button type="button" ng-class="{true : 'btn btn-primary btn-sm' , false:'btn btn-primary btn-sm disabled' }[order.orderStatus == 'ordered']" ng-click="removeOrder( order )">
                             <span class="glyphicon glyphicon-remove"></span> Remove

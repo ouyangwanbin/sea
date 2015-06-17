@@ -27,9 +27,9 @@ angular
                 url: '/sign-up/success',
                 templateUrl: 'views/sign-up-success.html'
             })
-            .state('reset-password-success', {
-                url: '/reset-password/success',
-                templateUrl: 'views/reset-password-success.html'
+            .state('update-user-success', {
+                url: '/update-user/success',
+                templateUrl: 'views/update-user-success.html'
             })
             .state('products', {
                 url: '/products',
@@ -40,9 +40,9 @@ angular
                 templateUrl: 'views/my-orders.html',
                 controller:'OrderController',
                 authenticate:true
-            }).state('reset-password', {
-                url: '/reset-password',
-                templateUrl: 'views/reset-password.html',
+            }).state('update-user', {
+                url: '/update-user',
+                templateUrl: 'views/update-user.html',
                 controller:'UpdateUserController',
                 authenticate:true
             }).state('error', {
