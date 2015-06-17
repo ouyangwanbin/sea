@@ -5,15 +5,15 @@
             <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                 <label class="control-label col-sm-2" for="email">Email:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" ng-model="customer.email">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" ng-model="user.email">
                     <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
                 </div>
             </div>
-            <div class="form-group" ng-class="{ 'has-error' : userFrom.error }">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.error }">
                 <label class="control-label col-sm-2" for="pwd">Password:</label>
                 <div class="col-sm-10">
-                    <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="customer.password">
-                    <p ng-show="userFrom.error" class="help-block">{{userForm.error.msg}}}}</p>
+                    <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="user.password">
+                    <p ng-show="userForm.error" class="help-block">{{userForm.error.msg}}</p>
                 </div>
             </div>
             <div class="form-group">

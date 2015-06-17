@@ -24,10 +24,10 @@
     },
     "validations": [],
     "relations": {
-        "orders":{
-            "type":"hasMany",
-            "model":"Order",
-            "foreignKey":"userId"
+        "orders": {
+            "type": "hasMany",
+            "model": "Order",
+            "foreignKey": "userId"
         }
     },
     "acls": [{
@@ -35,6 +35,12 @@
         "principalType": "ROLE",
         "principalId": "$everyone",
         "property": ["count"]
+    }, {
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW",
+        "property": "resetPassword",
+        "accessType": "EXECUTE"
     }],
     "methods": []
 }

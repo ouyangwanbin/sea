@@ -15,7 +15,7 @@
   },
   "User": {
     "dataSource": "mongoDs",
-    "public":false
+    "public":true
   },
   "AccessToken": {
     "dataSource": "mongoDs",
@@ -35,7 +35,7 @@
   },
   "Customer":{
     "dataSource": "mongoDs",
-    "public":true
+    "public":false
   },
   "Order": {
     "dataSource": "mongoDs",

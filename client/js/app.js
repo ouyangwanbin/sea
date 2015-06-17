@@ -8,10 +8,6 @@ angular
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
         $urlRouterProvider) {
         $stateProvider
-            .state('forbidden', {
-                url: '/forbidden',
-                templateUrl: 'views/forbidden.html',
-            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'views/login.html',
@@ -19,7 +15,8 @@ angular
             })
             .state('logout', {
                 url: '/logout',
-                controller: 'AuthLogoutController'
+                controller: 'AuthLogoutController',
+                authenticate:true
             })
             .state('sign-up', {
                 url: '/sign-up',
@@ -30,6 +27,10 @@ angular
                 url: '/sign-up/success',
                 templateUrl: 'views/sign-up-success.html'
             })
+            .state('reset-password-success', {
+                url: '/reset-password/success',
+                templateUrl: 'views/reset-password-success.html'
+            })
             .state('products', {
                 url: '/products',
                 templateUrl: 'views/products.html',
@@ -37,16 +38,28 @@ angular
             }).state('my-orders', {
                 url: '/orders',
                 templateUrl: 'views/my-orders.html',
-                controller:'OrderController'
+                controller:'OrderController',
+                authenticate:true
+            }).state('reset-password', {
+                url: '/reset-password',
+                templateUrl: 'views/reset-password.html',
+                controller:'UpdateUserController',
+                authenticate:true
+            }).state('error', {
+                url: '/error',
+                templateUrl: 'views/error.html'
             });
         $urlRouterProvider.otherwise('products');
     }])
-    .run(['$rootScope', '$state', function($rootScope, $state) {
+    .run(['$rootScope', '$state', '$cookieStore' ,function($rootScope, $state , $cookieStore) {
         $rootScope.$on('$stateChangeStart', function(event, next) {
+            if( $cookieStore.get( "currentUser" ) ){
+                $rootScope.currentUser = $cookieStore.get( "currentUser" );
+            }
             // redirect to login page if not logged in
             if (next.authenticate && !$rootScope.currentUser) {
                 event.preventDefault(); //prevent current page from loading
-                $state.go('forbidden');
+                $state.go('products');
             }
         });
     }]);
