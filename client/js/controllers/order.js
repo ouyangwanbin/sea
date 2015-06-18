@@ -12,6 +12,13 @@ angular
                     },
                     function(response) {
                         $scope.orders = response;
+                        $scope.totalSum = 0;
+                        for( var i=0 ; i<$scope.orders.length ; i++ ){
+                            var order = $scope.orders[i];
+                            if( order.orderStatus === 'ordered' ){
+                                $scope.totalSum += order.unit * order.unitPrice;
+                            }
+                        }
                     },
                     function() {
                         $state.go('error');
@@ -44,6 +51,7 @@ angular
                 Order.deleteById(order, function() {
                     for (var i = 0; i < orders.length; i++) {
                         if (orders[i]["id"] === order.id) {
+                            $scope.totalSum -= orders[i]['unit'] * orders[i]['unitPrice'];
                             orders.splice(i, 1);
                         }
                     }
