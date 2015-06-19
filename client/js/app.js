@@ -35,9 +35,9 @@ angular
                 url: '/products',
                 templateUrl: 'views/products.html',
                 controller:'ProductController'
-            }).state('my-orders', {
-                url: '/orders',
-                templateUrl: 'views/my-orders.html',
+            }).state('myOrders', {
+                url: '/myOrders',
+                templateUrl: 'views/myOrders.html',
                 controller:'OrderController',
                 authenticate:true
             }).state('update-user', {
@@ -48,6 +48,24 @@ angular
             }).state('error', {
                 url: '/error',
                 templateUrl: 'views/error.html'
+            }).state('superAdmin', {
+                url: '/superAdmin',
+                templateUrl: 'views/admin.html',
+                controller:'SuperAuthController'
+            }).state('manage', {
+                url: '/manage',
+                templateUrl: 'views/manage.html'
+            }).state('userManage', {
+                url: '/userManage',
+                templateUrl: 'views/userManage.html'
+            }).state('productManage', {
+                url: '/productManage',
+                templateUrl: 'views/productManage.html',
+                controller:'ProductController',
+                authenticate:true
+            }).state('orderManage', {
+                url: '/orderManage',
+                templateUrl: 'views/orderManage.html'
             });
         $urlRouterProvider.otherwise('products');
     }])

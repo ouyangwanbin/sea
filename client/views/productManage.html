@@ -1,0 +1,35 @@
+<section>
+    <div class="container">
+        <h2>Product List</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color:#B94629">
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Product Unit</th>
+                    <th>Product Quantity</th>
+                    <th>Product Image</th>
+                    <th>Product Description</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td><input type="text" ng-model="product.productName" /></td>
+                    <td><input type="text" ng-model="product.unitPrice" /></td>
+                    <td><input type="text" ng-model="product.unit" /></td>
+                    <td><input type="text" ng-model="product.quantities" /></td>
+                    <td><img class="img-responsive" src="images/{{product.imageURL}}" style="width:30px;margin-left: 25%;margin-right: 20%;"></td>
+                    <td><textarea ng-model="product.description"></textarea></td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="saveProduct( product )">
+                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:'glyphicon glyphicon-save'}[product.loading === true]" ></span>Save
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-primary">Add New Product</button>
+    </div>
+</section>

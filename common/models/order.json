@@ -33,7 +33,7 @@
     "relations": {
         "customer": {
             "type": "belongsTo",
-            "model": "Customer",
+            "model": "User",
             "foreignKey": "userId"
         },
         "product": {

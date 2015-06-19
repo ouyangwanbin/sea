@@ -18,7 +18,9 @@
             <div>
                 <ul class="nav navbar-nav" ng-show="currentUser">
                   <li><a href="javascript:void(0);">Hello , {{currentUser.user.email}}</a></li>
-                  <li><a ui-sref="my-orders">My orders</a></li>  
+                  <li><a ui-sref="myOrders">My orders</a></li>
+                  <li ng-show="currentUser.user.email == 'admin@gmail.com'"><a ui-sref="orderManage">Order Manage</a></li>  
+                  <li ng-show="currentUser.user.email == 'admin@gmail.com'"><a ui-sref="productManage">Product Manage</a></li>    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-show="currentUser"><a ui-sref="update-user"><span class="glyphicon glyphicon-edit"></span> Edit User</a></li>
@@ -41,6 +43,7 @@
     <script src="js/controllers/auth.js"></script>
     <script src="js/controllers/product.js"></script>
     <script src="js/controllers/order.js"></script>
+    <script src="js/controllers/superAuth.js"></script>
 </body>
 
 </html>

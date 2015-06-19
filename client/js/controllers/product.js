@@ -1,12 +1,29 @@
 angular
     .module('app')
-    .controller('ProductController', ['$scope', 'Product', 'Order', '$state', '$rootScope', '$modal',
-        function($scope, Product, Order, $state, $rootScope, $modal) {
+    .controller('ProductController', ['$scope', 'Product', 'Order', '$state', '$rootScope', '$modal','$timeout',
+        function($scope, Product, Order, $state, $rootScope, $modal , $timeout) {
             Product.find(function(response) {
                 $scope.products = response;
             }, function() {
                 $state.go("error");
             });
+
+            $scope.saveProduct = function( product ){
+            	product.loading = true;
+            	var productVO = {};
+            	productVO.productName = product.productName;
+            	productVO.unitPrice = product.unitPrice;
+            	productVO.unit = product.unit;
+            	productVO.quantities = product.quantities;
+            	productVO.description = product.description;
+            	Product.upsert( productVO , function( response ){
+            		$timeout( function(){
+            			product.loading = false;
+            		}, 1500 , true , product );
+            	},function( error ){
+            		$state.go("error");
+            	})
+            }
 
             $scope.order = function(product) {
                 if (!$rootScope.currentUser) {

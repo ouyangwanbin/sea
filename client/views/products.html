@@ -22,13 +22,13 @@
                             <div class="col-md-4 lead">
                                 <label>prices:</label>
                                 <mark>${{product.unitPrice}}</mark>
-                                <label>/lb</label>
+                                <label>/{{product.unit}}</label>
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-md-4 lead">
                                     <div class="form-group">
-                                        <label for="orderUnit">unit(lb):
+                                        <label for="orderUnit">{{product.unit}}:
                                             <input type="number" id="orderUnit" class="unit" ng-model="product.orderUnit">
                                         </label>
                                     </div>
