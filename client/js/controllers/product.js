@@ -1,28 +1,35 @@
 angular
     .module('app')
-    .controller('ProductController', ['$scope', 'Product', 'Order', '$state', '$rootScope', '$modal','$timeout',
-        function($scope, Product, Order, $state, $rootScope, $modal , $timeout) {
+    .controller('ProductController', ['$scope', 'Product', 'Order', '$state', '$rootScope', '$modal', '$timeout',
+        function($scope, Product, Order, $state, $rootScope, $modal, $timeout) {
             Product.find(function(response) {
                 $scope.products = response;
             }, function() {
                 $state.go("error");
             });
 
-            $scope.saveProduct = function( product ){
-            	product.loading = true;
-            	var productVO = {};
-            	productVO.productName = product.productName;
-            	productVO.unitPrice = product.unitPrice;
-            	productVO.unit = product.unit;
-            	productVO.quantities = product.quantities;
-            	productVO.description = product.description;
-            	Product.upsert( productVO , function( response ){
-            		$timeout( function(){
-            			product.loading = false;
-            		}, 1500 , true , product );
-            	},function( error ){
-            		$state.go("error");
-            	})
+            $scope.saveProduct = function(product) {
+                product.loading = true;
+                var productVO = {};
+                productVO.productName = product.productName;
+                productVO.unitPrice = product.unitPrice;
+                productVO.unit = product.unit;
+                productVO.quantities = product.quantities;
+                productVO.description = product.description;
+                Product.update({
+                        where: {
+                            "id": product.id
+                        }
+                    },
+                    productVO,
+                    function(response) {
+                        $timeout(function() {
+                            product.loading = false;
+                        }, 1500, true, product);
+                    },
+                    function(error) {
+                        $state.go("error");
+                    })
             }
 
             $scope.order = function(product) {
@@ -50,8 +57,8 @@ angular
                             Order: function() {
                                 return Order;
                             },
-                            user: function( ){
-                            	return $rootScope.currentUser.user;
+                            user: function() {
+                                return $rootScope.currentUser.user;
                             }
                         }
                     });
@@ -70,7 +77,7 @@ angular
             }
         }
     ]).controller('ModalInstanceCtrl',
-        function($scope, $modalInstance, product, Order , user) {
+        function($scope, $modalInstance, product, Order, user) {
             $scope.product = product;
             $scope.user = user;
             $scope.confirm = function() {
