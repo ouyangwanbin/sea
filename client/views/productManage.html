@@ -1,9 +1,9 @@
 <section>
     <div class="container">
         <h2>Product List</h2>
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" >
             <thead>
-                <tr style="background-color:#B94629">
+                <tr style="background-color:#B94629;color:white" >
                     <th>Product Name</th>
                     <th>Product Price</th>
                     <th>Product Unit</th>
@@ -19,17 +19,21 @@
                     <td><input type="text" ng-model="product.unitPrice" /></td>
                     <td><input type="text" ng-model="product.unit" /></td>
                     <td><input type="text" ng-model="product.quantities" /></td>
-                    <td><img class="img-responsive" src="images/{{product.imageURL}}" style="width:30px;margin-left: 25%;margin-right: 20%;"></td>
-                    <td><textarea ng-model="product.description"></textarea></td>
+                    <td><img class="img-responsive" src="images/container1/{{product.imageURL}}" style="width:30px;margin-left: 25%;margin-right: 20%;"></td>
+                    <td><textarea class="form-control" rows="2" ng-model="product.description"></textarea></td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="saveProduct( product )">
-                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:'glyphicon glyphicon-save'}[product.loading === true]" ></span>Save
+                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:''}[product.loading === 1]" ></span>Save
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="deleteProduct( product )">
+                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:''}[product.loading === 2]" ></span>Delete
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary">Add New Product</button>
+        <button type="button" class="btn btn-primary" ng-click="openAddProduct( )">Add New Product</button>
     </div>
 </section>

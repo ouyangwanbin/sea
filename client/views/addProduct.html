@@ -1,0 +1,58 @@
+<div class="modal-header" style="background-color:#B94629;color:white" >
+    <h3>Add Product</h3>
+</div>
+<div class="modal-body" >
+    <div class="container">
+        <form class="form-horizontal" role="form" ng-model="product">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productName" >Product Name:</label>
+                <div class="col-sm-4" >
+                    <input type="text" name="productName" class="form-control" id="productName" placeholder="Enter product name" ng-model="product.productName" required="string"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productPrice">Product Price:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" id="productPrice" placeholder="Enter product price" ng-model="product.unitPrice" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productUnit">Product Unit:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="productUnit" placeholder="Enter product unit" ng-model="product.unit" required="string"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productQuantity">Product Quantity:</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" id="productQuantity" placeholder="Enter product quantities." ng-model="product.quantities" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productImage">Product Image:</label>
+                <div class="col-sm-4">
+                    <span class="btn btn-default btn-file">
+    					Browse <input type="file" onchange="angular.element(this).scope().uploadedFile(this)"/>
+					</span>
+					<input type="text" ng-model="product.imageURL" readonly />
+					<button class="btn btn-primary" ng-click="upload()" ng-disabled="!uploadEnable">Upload</button>
+					<p><h4>{{message}}</h4></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="productDescription">Product Description:</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" rows="5"  ng-model="product.description"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

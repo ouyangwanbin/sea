@@ -66,6 +66,9 @@ angular
             }).state('orderManage', {
                 url: '/orderManage',
                 templateUrl: 'views/orderManage.html'
+            }).state('images', {
+                url: '/images',
+                controller:'ImageController',
             });
         $urlRouterProvider.otherwise('products');
     }])
