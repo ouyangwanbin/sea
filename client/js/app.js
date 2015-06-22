@@ -65,10 +65,9 @@ angular
                 authenticate:true
             }).state('orderManage', {
                 url: '/orderManage',
-                templateUrl: 'views/orderManage.html'
-            }).state('images', {
-                url: '/images',
-                controller:'ImageController',
+                templateUrl: 'views/orderManage.html',
+                controller:'OrderController',
+                authenticate:true
             });
         $urlRouterProvider.otherwise('products');
     }])

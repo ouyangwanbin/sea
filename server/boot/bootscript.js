@@ -4,8 +4,7 @@ module.exports = function(app) {
     var RoleMapping = app.models.RoleMapping;
     User.create([{
         email: 'admin@gmail.com',
-        password: 'abc123',
-        cell: '6507874232'
+        password: 'abc123'
     }], function(err, users) {
         if (err) {
             return console.log(err);

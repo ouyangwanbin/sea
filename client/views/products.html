@@ -3,7 +3,7 @@
         <div id="productItem" class="container">
             <div class="row">
                 <div class="col-md-3" style="padding:8px 0px 8px 0px;">
-                    <img class="img-responsive" src="images/container1/{{product.imageURL}}" alt="lobster" width="300">
+                    <img class="img-responsive" src="images/container1/{{product.imageURL}}" alt="lobster" style="height:250px;width:250px;">
                 </div>
                 <div class="col-md-4">
                     <div id="productName" class="container">
@@ -12,12 +12,7 @@
                                 <h1>{{product.productName}}</h1>
                             </div>
                         </div>
-                        <div class="row">
-                            <div id="productDescription" class="col-md-8">
-                                <h5>{{product.description}}
-								</h5>
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-4 lead">
                                 <label>prices:</label>
@@ -30,14 +25,23 @@
                                     <div class="form-group">
                                         <label for="orderUnit">{{product.unit}}:
                                             <input type="number" id="orderUnit" class="unit" ng-model="product.orderUnit">
+                                            <span>{{product.quantities}} available</span>
                                         </label>
                                     </div>
                                 </div>
                         </div>
                         <div class="row">
                         	<div class="col-md-4">
-                        		<button type="button" class="btn btn-primary" ng-click="order( product )">Order</button>
+                                <button type="button" class="btn btn-warning" ng-show="product.quantities <=0" disabled>Sold out</button>
+                        		<button type="button" class="btn btn-primary" ng-show="product.quantities > 0" ng-click="order( product )">Order</button>
                         	</div>
+                        </div>
+
+                        <div class="row" style="margin-top:20px;">
+                            <div id="productDescription" class="col-md-8">
+                                <h5>{{product.description}}
+                                </h5>
+                            </div>
                         </div>
                     </div>
                 </div>

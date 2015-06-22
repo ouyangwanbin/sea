@@ -1,7 +1,7 @@
 angular
     .module('app')
-    .controller('ProductController', ['$scope', 'Product', 'Order', 'uploadService' ,'$state', '$rootScope', '$modal', '$timeout',
-        function($scope, Product, Order, uploadService , $state, $rootScope, $modal, $timeout) {
+    .controller('ProductController', ['$scope', 'Product', 'Order', 'uploadService', '$state', '$rootScope', '$modal', '$timeout',
+        function($scope, Product, Order, uploadService, $state, $rootScope, $modal, $timeout) {
             Product.find(function(response) {
                 $scope.products = response;
             }, function() {
@@ -61,11 +61,11 @@ angular
                         Product: function() {
                             return Product;
                         },
-                        uploadService : function(){
-                        	return uploadService;
+                        uploadService: function() {
+                            return uploadService;
                         },
-                        state : function(){
-                        	return $state;
+                        state: function() {
+                            return $state;
                         }
                     }
                 });
@@ -84,8 +84,7 @@ angular
                     });
                     return false;
                 }
-                if (product.orderUnit > 0) {
-                    product.userId = $rootScope.currentUser.user.id;
+                if (product.orderUnit > 0 && product.orderUnit <= product.quantities) {
                     $modal.open({
                         templateUrl: 'views/orderModal.html',
                         controller: 'ModalInstanceCtrl',
@@ -98,11 +97,25 @@ angular
                             },
                             user: function() {
                                 return $rootScope.currentUser.user;
+                            },
+                            Product : function(){
+                            	return Product;
                             }
                         }
                     });
-                } else {
+                } else if( product.orderUnit > product.quantities ){
                     $modal.open({
+                        templateUrl: 'views/modal.html',
+                        controller: 'MessageModalInstanceCtrl',
+                        resolve: {
+                            message: function() {
+                                return "not enough available";
+                            }
+                        }
+                    });
+                    return false;
+                }else{
+                	$modal.open({
                         templateUrl: 'views/modal.html',
                         controller: 'MessageModalInstanceCtrl',
                         resolve: {
@@ -116,20 +129,31 @@ angular
             }
         }
     ]).controller('ModalInstanceCtrl',
-        function($scope, $modalInstance, product, Order, user) {
+        function($scope, $modalInstance, product, Order, user , Product ) {
             $scope.product = product;
             $scope.user = user;
             $scope.confirm = function() {
                 var order = {};
-                order.userId = product.userId;
                 order.productName = product.productName;
+                order.productId = product.id;
                 order.unit = product.orderUnit;
                 order.unitPrice = product.unitPrice;
                 order.orderDate = new Date();
                 order.orderStatus = "ordered";
                 order.address = $scope.user.address;
-                Order.create(order, function() {
-                    $modalInstance.close();
+                order.userId = $scope.user.id;
+                order.userEmail = $scope.user.email;
+                Order.create(order, function( ) {
+                	product.quantities = product.quantities - order.unit;
+                	Product.prototype$updateAttributes({
+                		id : product.id
+                	} , { quantities :  product.quantities } , function( ){
+                		$modalInstance.close();
+                	} , function( ){
+                		console.log( 'error' );
+                		$modalInstance.close();
+                	});
+                    
                 }, function() {
                     $modalInstance.close();
                 });
@@ -146,7 +170,7 @@ angular
                 $modalInstance.close();
             }
         }).controller('AddProductModalCtrl',
-        function($scope, $modalInstance, Product, product , uploadService , state ) {
+        function($scope, $modalInstance, Product, product, uploadService, state) {
             $scope.product = product;
             $scope.file = null;
             $scope.uploadEnable = false;
@@ -156,29 +180,33 @@ angular
                 $scope.uploadEnable = true;
                 $scope.$apply();
             }
-            $scope.upload = function( ){
-            	$scope.message = "";
-            	$scope.uploadEnable = false;
-            	uploadService( $scope.file , '/api/containers/container1/upload' , function( ){
-            		$scope.message = "upload success";
-            		$scope.uploadEnable = true;
-            	},function(){
-            		$scope.message = "upload failed";
-            		$scope.uploadEnable = true;
-            	});
+            $scope.upload = function() {
+                $scope.message = "";
+                $scope.uploadEnable = false;
+                uploadService($scope.file, '/api/containers/container1/upload', function() {
+                    $scope.message = "upload success";
+                    $scope.uploadEnable = true;
+                }, function() {
+                    $scope.message = "upload failed";
+                    $scope.uploadEnable = true;
+                });
             }
 
-            $scope.save = function(){
-            	Product.create( $scope.product , function( ){
-   					state.go(state.current, {}, {reload: true});
-            		$modalInstance.close( );
-            	},function(){
-            		$modalInstance.close( );
-            	} );
+            $scope.save = function() {
+                Product.create($scope.product, function() {
+                    state.go(state.current, {}, {
+                        reload: true
+                    });
+                    $modalInstance.close();
+                }, function() {
+                    $modalInstance.close();
+                });
             }
 
             $scope.cancel = function() {
-   				state.go(state.current, {}, {reload: true});
+                state.go(state.current, {}, {
+                    reload: true
+                });
                 $modalInstance.close();
             }
         });

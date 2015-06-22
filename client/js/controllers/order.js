@@ -1,28 +1,51 @@
 angular
     .module('app')
-    .controller('OrderController', ['$scope', 'Order', '$state', '$rootScope', '$modal', '$cookieStore',
-        function($scope, Order, $state, $rootScope, $modal, $cookieStore) {
+    .controller('OrderController', ['$scope', 'Order', 'Product', '$state', '$rootScope', '$modal', '$cookieStore',
+        function($scope, Order, Product, $state, $rootScope, $modal, $cookieStore) {
             if ($rootScope.currentUser) {
-                Order.find({
-                        filter: {
-                            where: {
-                                userId: $rootScope.currentUser.user.id
+                if ($rootScope.currentUser.user.email === 'admin@gmail.com') {
+                    Order.find(
+                        function(response) {
+                            $scope.orders = response;
+                            $scope.totalSum = 0;
+
+                            for (var i = 0; i < $scope.orders.length; i++) {
+                                var order = $scope.orders[i];
+                                if (order.orderStatus === 'ordered') {
+                                    $scope.totalSum += order.unit * order.unitPrice;
+                                }
                             }
-                        }
-                    },
-                    function(response) {
-                        $scope.orders = response;
-                        $scope.totalSum = 0;
-                        for( var i=0 ; i<$scope.orders.length ; i++ ){
-                            var order = $scope.orders[i];
-                            if( order.orderStatus === 'ordered' ){
-                                $scope.totalSum += order.unit * order.unitPrice;
+                        },
+                        function() {
+                            $state.go('error');
+                        });
+                } else {
+                    Order.find({
+                            filter: {
+                                where: {
+                                    userId: $rootScope.currentUser.user.id
+                                }
                             }
-                        }
-                    },
-                    function() {
-                        $state.go('error');
-                    });
+                        },
+                        function(response) {
+                            $scope.orders = response;
+                            $scope.totalSum = 0;
+                            // $state.go($state.current, {}, {
+                            //     reload: true
+                            // });
+
+                            for (var i = 0; i < $scope.orders.length; i++) {
+                                var order = $scope.orders[i];
+                                if (order.orderStatus === 'ordered') {
+                                    $scope.totalSum += order.unit * order.unitPrice;
+                                }
+                            }
+                        },
+                        function() {
+                            $state.go('error');
+                        });
+                }
+
             } else {
                 $state.go('products');
             }
@@ -39,25 +62,58 @@ angular
                         },
                         orders: function() {
                             return $scope.orders;
+                        },
+                        state: function() {
+                            return $state;
+                        },
+                        Product: function() {
+                            return Product;
                         }
                     }
                 });
             }
 
-        }
-    ]).controller('deleteOrderModalCtrl',
-        function($scope, $modalInstance, order, Order, orders) {
-            $scope.confirm = function() {
-                Order.deleteById(order, function() {
-                    for (var i = 0; i < orders.length; i++) {
-                        if (orders[i]["id"] === order.id) {
-                            $scope.totalSum -= orders[i]['unit'] * orders[i]['unitPrice'];
-                            orders.splice(i, 1);
-                        }
+            $scope.changeSelectValue = function(order) {
+                Order.update({
+                    where: {
+                        id: order.id
                     }
-                    $modalInstance.close();
+                }, order, function() {
+                    console.log('update success');
+                    $state.go($state.current, {}, {
+                        reload: true
+                    });
                 }, function() {
                     $state.go('error');
+                })
+            }
+        }
+    ]).controller('deleteOrderModalCtrl',
+        function($scope, $modalInstance, order, Order, orders, state, Product) {
+            $scope.confirm = function() {
+                Order.deleteById(order, function() {
+                    Product.findById({
+                        id: order.productId
+                    }, function(response) {
+                        var p = response;
+                        p.quantities = p.quantities + order.unit;
+                        Product.prototype$updateAttributes({
+                            id: p.id
+                        }, {
+                            quantities: p.quantities
+                        }, function() {
+                            state.go(state.current, {}, {
+                                reload: true
+                            });
+                        }, function() {
+                            state.go('error');
+                        })
+                    }, function() {
+                        state.go('error');
+                    })
+                    $modalInstance.close( );
+                }, function() {
+                    state.go('error');
                 });
 
             };
