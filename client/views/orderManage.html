@@ -1,0 +1,41 @@
+<section>
+    <div class="container">
+        <h2>Order List</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color:#B94629;color:white">
+                    <th>Order User</th>
+                    <th>Product Name</th>
+                    <th>Order Unit(lb)</th>
+                    <th>Order Time</th>
+                    <th>Order Status</th>
+                    <th>Order fee</th>
+                    <th>Order Address</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orders">
+                    <td>{{order.userEmail}}</td>
+                    <td>{{order.productName}}</td>
+                    <td>{{order.unit}}</td>
+                    <td>{{order.orderDate}}</td>
+                    <!--<td>{{order.orderStatus}}</td>-->
+                    <td>
+                        <select class="form-control" ng-model="order.orderStatus" id="sel1" ng-change="changeSelectValue( order )">
+                            <option value="ordered">ordered</option>
+                            <option value="delivered">deliverd</option>
+                        </select>
+                    </td>
+                    <td>${{order.unit * order.unitPrice}}</td>
+                    <td>{{order.address}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="removeOrder( order )">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
