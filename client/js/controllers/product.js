@@ -204,9 +204,6 @@ angular
             }
 
             $scope.cancel = function() {
-                state.go(state.current, {}, {
-                    reload: true
-                });
                 $modalInstance.close();
             }
         });
