@@ -1,9 +1,9 @@
 <section>
     <div class="container">
         <h2>Product List</h2>
-        <table class="table table-bordered table-hover" >
+        <table class="table table-bordered table-hover">
             <thead>
-                <tr style="background-color:#B94629;color:white" >
+                <tr style="background-color:#B94629;color:white">
                     <th>Product Name</th>
                     <th>Product Price</th>
                     <th>Product Unit</th>
@@ -15,25 +15,35 @@
             </thead>
             <tbody>
                 <tr ng-repeat="product in products">
-                    <td><input type="text" ng-model="product.productName" /></td>
-                    <td><input type="text" ng-model="product.unitPrice" /></td>
-                    <td><input type="text" ng-model="product.unit" /></td>
-                    <td><input type="text" ng-model="product.quantities" /></td>
-                    <td><img class="img-responsive" src="images/container1/{{product.imageURL}}" style="width:30px;margin-left: 25%;margin-right: 20%;"></td>
-                    <td><textarea class="form-control" rows="2" ng-model="product.description"></textarea></td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="saveProduct( product )">
-                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:''}[product.loading === 1]" ></span>Save
-                        </button>
-
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="deleteProduct( product )">
-                            <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:''}[product.loading === 2]" ></span>Delete
-                        </button>
+                        <input type="text" ng-model="product.productName" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="product.unitPrice" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="product.unit" />
+                    </td>
+                    <td>
+                        <input type="text" ng-model="product.quantities" />
+                    </td>
+                    <td><img class="img-responsive" src="images/container1/{{product.imageURL}}" style="width:30px;margin-left: 25%;margin-right: 20%;"></td>
+                    <td>
+                        <textarea class="form-control" rows="2" ng-model="product.description"></textarea>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="saveProduct( product )">
+                                <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:'glyphicon glyphicon-save'}[product.loading === 1]" tooltip="save"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="deleteProduct( product )">
+                                <span ng-model="product.loading" ng-class="{true:'glyphicon glyphicon-refresh glyphicon-refresh-animate',false:'glyphicon glyphicon-remove'}[product.loading === 2]" tooltip="delete"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-
         <button type="button" class="btn btn-primary" ng-click="openAddProduct( )">Add New Product</button>
     </div>
 </section>

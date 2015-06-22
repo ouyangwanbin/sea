@@ -181,13 +181,13 @@ angular
                 $scope.$apply();
             }
             $scope.upload = function() {
-                $scope.message = "";
+                $scope.uploadError = "";
                 $scope.uploadEnable = false;
                 uploadService($scope.file, '/api/containers/container1/upload', function() {
-                    $scope.message = "upload success";
+                    $scope.uploadError = false;
                     $scope.uploadEnable = true;
                 }, function() {
-                    $scope.message = "upload failed";
+                    $scope.uploadError = true;
                     $scope.uploadEnable = true;
                 });
             }

@@ -34,5 +34,13 @@
     "Product": {
         "dataSource": "mongoDs",
         "public": true
+    },
+    "user": {
+        "dataSource": "mongoDs",
+        "public": true
+    },
+    "Container": {
+        "dataSource": "storage",
+        "public": true
     }
 }

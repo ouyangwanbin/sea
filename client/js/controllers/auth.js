@@ -70,16 +70,12 @@ angular
                     };
                     return;
                 }
-                var user = {};
-                user.userId = $rootScope.currentUser.user.id;
-                user.email = $rootScope.currentUser.user.email;
-                if( $scope.user.newPassword ){
-                    user.password = $scope.user.newPassword;
-                }
-                user.address = $scope.user.address;
                 User.prototype$updateAttributes({
                     id: user.userId
-                }, user, function(response) {
+                }, {
+                    address: $scope.user.address,
+                    password: $scope.user.newPassword
+                }, function(response) {
                     $rootScope.currentUser.user = response;
                     $state.transitionTo('update-user-success');
                 }, function() {
@@ -118,10 +114,10 @@ angular
             });
             $scope.register = function() {
 
-                var user = {};
-                user.email = $scope.user.email;
                 User.count({
-                    where: user
+                    where: {
+                        email: $scope.user.email
+                    }
                 }, function(response) {
                     if (response.count > 0) {
                         $scope.userForm.email.error = {
@@ -129,6 +125,7 @@ angular
                         };
                         return;
                     } else {
+                        var user = {};
                         user.password = $scope.user.password;
                         user.address = $scope.user.address;
                         User.create(user, function() {

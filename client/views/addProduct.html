@@ -39,7 +39,8 @@
 					</span>
 					<input type="text" ng-model="product.imageURL" readonly />
 					<button class="btn btn-primary" ng-click="upload()" ng-disabled="!uploadEnable">Upload</button>
-					<p><h4>{{message}}</h4></p>
+					<p ng-show="uploadError === true"><alert type="danger">upload failed</alert></p>
+                    <p ng-show="uploadError === false"><alert type="success">upload success</alert></p>
                 </div>
             </div>
 
