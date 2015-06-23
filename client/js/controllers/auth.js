@@ -128,6 +128,7 @@ angular
                         var user = {};
                         user.password = $scope.user.password;
                         user.address = $scope.user.address;
+                        user.email = $scope.user.email;
                         User.create(user, function() {
                             $state.transitionTo('sign-up-success');
                         }, function() {

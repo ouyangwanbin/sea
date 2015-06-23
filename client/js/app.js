@@ -48,13 +48,6 @@ angular
             }).state('error', {
                 url: '/error',
                 templateUrl: 'views/error.html'
-            }).state('superAdmin', {
-                url: '/superAdmin',
-                templateUrl: 'views/admin.html',
-                controller:'SuperAuthController'
-            }).state('manage', {
-                url: '/manage',
-                templateUrl: 'views/manage.html'
             }).state('userManage', {
                 url: '/userManage',
                 templateUrl: 'views/userManage.html'
