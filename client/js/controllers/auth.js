@@ -70,8 +70,9 @@ angular
                     };
                     return;
                 }
-                User.prototype$updateAttributes({
-                    id: user.userId
+                User.prototype$__updateById__accessTokens({
+                    id: $rootScope.currentUser.user.id,
+                    fk: $rootScope.currentUser.tokenId
                 }, {
                     address: $scope.user.address,
                     password: $scope.user.newPassword
