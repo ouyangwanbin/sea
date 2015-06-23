@@ -15,7 +15,7 @@
         "userId": {
             "type": "string"
         },
-        "productId":{
+        "productId": {
             "type": "string"
         },
         "orderDate": {
@@ -35,10 +35,37 @@
     "relations": {
         "user": {
             "type": "belongsTo",
-            "model": "user",
+            "model": "User",
             "foreignKey": "userId"
+        },
+        "userInfo":{
+          "type": "embedsOne",
+          "model": "User",
+          "property":["email" , "address"]
+        },
+        "productInfo":{
+          "type": "embedsOne",
+          "model": "Product",
+          "property":["productName"]
         }
     },
-    "acls": [],
+    "acls": [{
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+    }, {
+        "accessType": "WRITE",
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW",
+        "property": ["create"]
+    },{
+        "accessType": "READ",
+        "principalType": "ROLE",
+        "principalId": "admin",
+        "permission": "ALLOW",
+        "property": ["find"]
+    }],
     "methods": []
 }

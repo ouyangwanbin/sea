@@ -1,7 +1,7 @@
 angular
     .module('app')
-    .controller('ProductController', ['$scope', 'Product', 'Order', 'uploadService', '$state', '$rootScope', '$modal', '$timeout',
-        function($scope, Product, Order, uploadService, $state, $rootScope, $modal, $timeout) {
+    .controller('ProductController', ['$scope', 'User', 'Product', 'Order', 'uploadService', '$state', '$rootScope', '$modal', '$timeout',
+        function($scope, User, Product, Order, uploadService, $state, $rootScope, $modal, $timeout) {
             Product.find(function(response) {
                 $scope.products = response;
             }, function() {
@@ -98,12 +98,15 @@ angular
                             user: function() {
                                 return $rootScope.currentUser.user;
                             },
-                            Product : function(){
-                            	return Product;
+                            Product: function() {
+                                return Product;
+                            },
+                            User: function() {
+                                return User;
                             }
                         }
                     });
-                } else if( product.orderUnit > product.quantities ){
+                } else if (product.orderUnit > product.quantities) {
                     $modal.open({
                         templateUrl: 'views/modal.html',
                         controller: 'MessageModalInstanceCtrl',
@@ -114,8 +117,8 @@ angular
                         }
                     });
                     return false;
-                }else{
-                	$modal.open({
+                } else {
+                    $modal.open({
                         templateUrl: 'views/modal.html',
                         controller: 'MessageModalInstanceCtrl',
                         resolve: {
@@ -129,7 +132,7 @@ angular
             }
         }
     ]).controller('ModalInstanceCtrl',
-        function($scope, $modalInstance, product, Order, user , Product ) {
+        function($scope, $modalInstance, product, Order, user, Product, User) {
             $scope.product = product;
             $scope.user = user;
             $scope.confirm = function() {
@@ -141,23 +144,26 @@ angular
                 order.orderDate = new Date();
                 order.orderStatus = "ordered";
                 order.address = $scope.user.address;
-                order.userId = $scope.user.id;
                 order.userEmail = $scope.user.email;
-                Order.create(order, function( ) {
-                	product.quantities = product.quantities - order.unit;
-                	Product.prototype$updateAttributes({
-                		id : product.id
-                	} , { quantities :  product.quantities } , function( ){
-                		$modalInstance.close();
-                	} , function( ){
-                		console.log( 'error' );
-                		$modalInstance.close();
-                	});
-                    
-                }, function() {
+                User.orders.create({
+                    id: $scope.user.id
+                }, order, function(response) {
+                    product.quantities = product.quantities - order.unit;
+                    Product.prototype$updateAttributes({
+                        id: product.id
+                    }, {
+                        quantities: product.quantities
+                    }, function() {
+                        $modalInstance.close();
+                    }, function() {
+                        console.log('error');
+                        $modalInstance.close();
+                    });
+
+                }, function(error) {
+                    console.log(error);
                     $modalInstance.close();
                 });
-
             };
 
             $scope.cancel = function() {

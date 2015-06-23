@@ -18,7 +18,7 @@
             <div>
                 <ul class="nav navbar-nav" ng-show="currentUser">
                   <li><a href="javascript:void(0);">Hello , {{currentUser.user.email}}</a></li>
-                  <li><a ui-sref="myOrders">My orders</a></li>
+                  <li><a ui-sref="myOrders" ng-hide="currentUser.user.email == 'admin@gmail.com'">My orders</a></li>
                   <li ng-show="currentUser.user.email == 'admin@gmail.com'"><a ui-sref="orderManage">Order Manage</a></li>  
                   <li ng-show="currentUser.user.email == 'admin@gmail.com'"><a ui-sref="productManage">Product Manage</a></li>    
                 </ul>

@@ -146,6 +146,24 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use User.orders.findById() instead.
+        "prototype$__findById__orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use User.orders.destroyById() instead.
+        "prototype$__destroyById__orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use User.orders.updateById() instead.
+        "prototype$__updateById__orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "PUT"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.User#prototype$__get__accessTokens
@@ -280,6 +298,31 @@ module.factory(
          */
         "prototype$__count__accessTokens": {
           url: urlBase + "/Users/:id/accessTokens/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use User.orders() instead.
+        "prototype$__get__orders": {
+          isArray: true,
+          url: urlBase + "/Users/:id/orders",
+          method: "GET"
+        },
+
+        // INTERNAL. Use User.orders.create() instead.
+        "prototype$__create__orders": {
+          url: urlBase + "/Users/:id/orders",
+          method: "POST"
+        },
+
+        // INTERNAL. Use User.orders.destroyAll() instead.
+        "prototype$__delete__orders": {
+          url: urlBase + "/Users/:id/orders",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use User.orders.count() instead.
+        "prototype$__count__orders": {
+          url: urlBase + "/Users/:id/orders/count",
           method: "GET"
         },
 
@@ -793,6 +836,36 @@ module.factory(
           method: "POST"
         },
 
+        // INTERNAL. Use Order.user() instead.
+        "::get::Order::user": {
+          url: urlBase + "/Orders/:id/user",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Order.userInfo() instead.
+        "::get::Order::userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Order.userInfo.create() instead.
+        "::create::Order::userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Order.userInfo.update() instead.
+        "::update::Order::userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Order.userInfo.destroy() instead.
+        "::destroy::Order::userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "DELETE"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.User#getCurrent
@@ -1008,6 +1081,269 @@ module.factory(
     */
     R.modelName = "User";
 
+    /**
+     * @ngdoc object
+     * @name lbServices.User.orders
+     * @header lbServices.User.orders
+     * @object
+     * @description
+     *
+     * The object `User.orders` groups methods
+     * manipulating `Order` instances related to `User`.
+     *
+     * Call {@link lbServices.User#orders User.orders()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User#orders
+         * @methodOf lbServices.User
+         *
+         * @description
+         *
+         * Queries orders of User.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Order` object.)
+         * </em>
+         */
+        R.orders = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::get::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#count
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Counts orders of User.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.orders.count = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::count::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#create
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Creates a new instance in orders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Order` object.)
+         * </em>
+         */
+        R.orders.create = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::create::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#destroyAll
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Deletes all orders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.orders.destroyAll = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::delete::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#destroyById
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Delete a related item by id for orders.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for orders
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.orders.destroyById = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::destroyById::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#findById
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Find a related item by id for orders.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for orders
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Order` object.)
+         * </em>
+         */
+        R.orders.findById = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::findById::User::orders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.User.orders#updateById
+         * @methodOf lbServices.User.orders
+         *
+         * @description
+         *
+         * Update a related item by id for orders.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `fk` – `{*}` - Foreign key for orders
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Order` object.)
+         * </em>
+         */
+        R.orders.updateById = function() {
+          var TargetResource = $injector.get("Order");
+          var action = TargetResource["::updateById::User::orders"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -2448,27 +2784,57 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Order.product() instead.
-        "prototype$__get__product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.user() instead.
+        "prototype$__get__user": {
+          url: urlBase + "/Orders/:id/user",
           method: "GET"
         },
 
-        // INTERNAL. Use Order.product.create() instead.
-        "prototype$__create__product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.userInfo() instead.
+        "prototype$__get__userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Order.userInfo.create() instead.
+        "prototype$__create__userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
           method: "POST"
         },
 
-        // INTERNAL. Use Order.product.update() instead.
-        "prototype$__update__product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.userInfo.update() instead.
+        "prototype$__update__userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
           method: "PUT"
         },
 
-        // INTERNAL. Use Order.product.destroy() instead.
-        "prototype$__destroy__product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.userInfo.destroy() instead.
+        "prototype$__destroy__userInfo": {
+          url: urlBase + "/Orders/:id/userInfo",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Order.productInfo() instead.
+        "prototype$__get__productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Order.productInfo.create() instead.
+        "prototype$__create__productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Order.productInfo.update() instead.
+        "prototype$__update__productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Order.productInfo.destroy() instead.
+        "prototype$__destroy__productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
           method: "DELETE"
         },
 
@@ -2814,6 +3180,49 @@ module.factory(
           url: urlBase + "/Orders/:id",
           method: "PUT"
         },
+
+        // INTERNAL. Use User.orders.findById() instead.
+        "::findById::User::orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use User.orders.destroyById() instead.
+        "::destroyById::User::orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use User.orders.updateById() instead.
+        "::updateById::User::orders": {
+          url: urlBase + "/Users/:id/orders/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use User.orders() instead.
+        "::get::User::orders": {
+          isArray: true,
+          url: urlBase + "/Users/:id/orders",
+          method: "GET"
+        },
+
+        // INTERNAL. Use User.orders.create() instead.
+        "::create::User::orders": {
+          url: urlBase + "/Users/:id/orders",
+          method: "POST"
+        },
+
+        // INTERNAL. Use User.orders.destroyAll() instead.
+        "::delete::User::orders": {
+          url: urlBase + "/Users/:id/orders",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use User.orders.count() instead.
+        "::count::User::orders": {
+          url: urlBase + "/Users/:id/orders/count",
+          method: "GET"
+        },
       }
     );
 
@@ -2950,29 +3359,222 @@ module.factory(
     */
     R.modelName = "Order";
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Order#user
+         * @methodOf lbServices.Order
+         *
+         * @description
+         *
+         * Fetches belongsTo relation user.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
+         */
+        R.user = function() {
+          var TargetResource = $injector.get("User");
+          var action = TargetResource["::get::Order::user"];
+          return action.apply(R, arguments);
+        };
     /**
      * @ngdoc object
-     * @name lbServices.Order.product
-     * @header lbServices.Order.product
+     * @name lbServices.Order.userInfo
+     * @header lbServices.Order.userInfo
      * @object
      * @description
      *
-     * The object `Order.product` groups methods
-     * manipulating `Product` instances related to `Order`.
+     * The object `Order.userInfo` groups methods
+     * manipulating `User` instances related to `Order`.
      *
-     * Call {@link lbServices.Order#product Order.product()}
+     * Call {@link lbServices.Order#userInfo Order.userInfo()}
      * to query all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name lbServices.Order#product
+         * @name lbServices.Order#userInfo
          * @methodOf lbServices.Order
          *
          * @description
          *
-         * Fetches hasOne relation product.
+         * Fetches hasOne relation userInfo.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
+         */
+        R.userInfo = function() {
+          var TargetResource = $injector.get("User");
+          var action = TargetResource["::get::Order::userInfo"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Order.userInfo#create
+         * @methodOf lbServices.Order.userInfo
+         *
+         * @description
+         *
+         * Creates a new instance in userInfo of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
+         */
+        R.userInfo.create = function() {
+          var TargetResource = $injector.get("User");
+          var action = TargetResource["::create::Order::userInfo"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Order.userInfo#destroy
+         * @methodOf lbServices.Order.userInfo
+         *
+         * @description
+         *
+         * Deletes userInfo of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.userInfo.destroy = function() {
+          var TargetResource = $injector.get("User");
+          var action = TargetResource["::destroy::Order::userInfo"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Order.userInfo#update
+         * @methodOf lbServices.Order.userInfo
+         *
+         * @description
+         *
+         * Update userInfo of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `User` object.)
+         * </em>
+         */
+        R.userInfo.update = function() {
+          var TargetResource = $injector.get("User");
+          var action = TargetResource["::update::Order::userInfo"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Order.productInfo
+     * @header lbServices.Order.productInfo
+     * @object
+     * @description
+     *
+     * The object `Order.productInfo` groups methods
+     * manipulating `Product` instances related to `Order`.
+     *
+     * Call {@link lbServices.Order#productInfo Order.productInfo()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Order#productInfo
+         * @methodOf lbServices.Order
+         *
+         * @description
+         *
+         * Fetches hasOne relation productInfo.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2995,20 +3597,20 @@ module.factory(
          * This usually means the response is a `Product` object.)
          * </em>
          */
-        R.product = function() {
+        R.productInfo = function() {
           var TargetResource = $injector.get("Product");
-          var action = TargetResource["::get::Order::product"];
+          var action = TargetResource["::get::Order::productInfo"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Order.product#create
-         * @methodOf lbServices.Order.product
+         * @name lbServices.Order.productInfo#create
+         * @methodOf lbServices.Order.productInfo
          *
          * @description
          *
-         * Creates a new instance in product of this model.
+         * Creates a new instance in productInfo of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -3033,20 +3635,20 @@ module.factory(
          * This usually means the response is a `Product` object.)
          * </em>
          */
-        R.product.create = function() {
+        R.productInfo.create = function() {
           var TargetResource = $injector.get("Product");
-          var action = TargetResource["::create::Order::product"];
+          var action = TargetResource["::create::Order::productInfo"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Order.product#destroy
-         * @methodOf lbServices.Order.product
+         * @name lbServices.Order.productInfo#destroy
+         * @methodOf lbServices.Order.productInfo
          *
          * @description
          *
-         * Deletes product of this model.
+         * Deletes productInfo of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -3064,20 +3666,20 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.product.destroy = function() {
+        R.productInfo.destroy = function() {
           var TargetResource = $injector.get("Product");
-          var action = TargetResource["::destroy::Order::product"];
+          var action = TargetResource["::destroy::Order::productInfo"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Order.product#update
-         * @methodOf lbServices.Order.product
+         * @name lbServices.Order.productInfo#update
+         * @methodOf lbServices.Order.productInfo
          *
          * @description
          *
-         * Update product of this model.
+         * Update productInfo of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -3102,9 +3704,9 @@ module.factory(
          * This usually means the response is a `Product` object.)
          * </em>
          */
-        R.product.update = function() {
+        R.productInfo.update = function() {
           var TargetResource = $injector.get("Product");
-          var action = TargetResource["::update::Order::product"];
+          var action = TargetResource["::update::Order::productInfo"];
           return action.apply(R, arguments);
         };
 
@@ -3479,27 +4081,27 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Order.product() instead.
-        "::get::Order::product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.productInfo() instead.
+        "::get::Order::productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
           method: "GET"
         },
 
-        // INTERNAL. Use Order.product.create() instead.
-        "::create::Order::product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.productInfo.create() instead.
+        "::create::Order::productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
           method: "POST"
         },
 
-        // INTERNAL. Use Order.product.update() instead.
-        "::update::Order::product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.productInfo.update() instead.
+        "::update::Order::productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
           method: "PUT"
         },
 
-        // INTERNAL. Use Order.product.destroy() instead.
-        "::destroy::Order::product": {
-          url: urlBase + "/Orders/:id/product",
+        // INTERNAL. Use Order.productInfo.destroy() instead.
+        "::destroy::Order::productInfo": {
+          url: urlBase + "/Orders/:id/productInfo",
           method: "DELETE"
         },
       }

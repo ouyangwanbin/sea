@@ -1,7 +1,7 @@
 angular
     .module('app')
-    .controller('OrderController', ['$scope', 'Order', 'Product', '$state', '$rootScope', '$modal', '$cookieStore',
-        function($scope, Order, Product, $state, $rootScope, $modal, $cookieStore) {
+    .controller('OrderController', ['$scope', 'User', 'Order', 'Product', '$state', '$rootScope', '$modal', '$cookieStore',
+        function($scope, User, Order, Product, $state, $rootScope, $modal, $cookieStore) {
             if ($rootScope.currentUser) {
                 if ($rootScope.currentUser.user.email === 'admin@gmail.com') {
                     Order.find(
@@ -20,19 +20,11 @@ angular
                             $state.go('error');
                         });
                 } else {
-                    Order.find({
-                            filter: {
-                                where: {
-                                    userId: $rootScope.currentUser.user.id
-                                }
-                            }
-                        },
-                        function(response) {
+                    User.orders({
+                            id: $rootScope.currentUser.user.id,
+                        }, function(response) {
                             $scope.orders = response;
                             $scope.totalSum = 0;
-                            // $state.go($state.current, {}, {
-                            //     reload: true
-                            // });
 
                             for (var i = 0; i < $scope.orders.length; i++) {
                                 var order = $scope.orders[i];
@@ -111,7 +103,7 @@ angular
                     }, function() {
                         state.go('error');
                     })
-                    $modalInstance.close( );
+                    $modalInstance.close();
                 }, function() {
                     state.go('error');
                 });
