@@ -37,16 +37,6 @@
             "type": "belongsTo",
             "model": "User",
             "foreignKey": "userId"
-        },
-        "userInfo":{
-          "type": "embedsOne",
-          "model": "User",
-          "property":["email" , "address"]
-        },
-        "productInfo":{
-          "type": "embedsOne",
-          "model": "Product",
-          "property":["productName"]
         }
     },
     "acls": [{
