@@ -45,17 +45,17 @@
         "principalId": "$everyone",
         "permission": "DENY"
     }, {
-        "accessType": "WRITE",
-        "principalType": "ROLE",
-        "principalId": "$authenticated",
-        "permission": "ALLOW",
-        "property": ["create"]
-    },{
         "accessType": "READ",
         "principalType": "ROLE",
         "principalId": "admin",
         "permission": "ALLOW",
         "property": ["find"]
+    }, {
+        "accessType": "WRITE",
+        "principalType": "ROLE",
+        "principalId": "admin",
+        "permission": "ALLOW",
+        "property": ["updateAttributes"]
     }],
     "methods": []
 }

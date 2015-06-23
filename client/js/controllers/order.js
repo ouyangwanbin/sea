@@ -60,17 +60,18 @@ angular
                         },
                         Product: function() {
                             return Product;
+                        },
+                        User: function() {
+                            return User;
                         }
                     }
                 });
             }
 
             $scope.changeSelectValue = function(order) {
-                Order.update({
-                    where: {
-                        id: order.id
-                    }
-                }, order, function() {
+                Order.prototype$updateAttributes({
+                    id: order.id
+                }, { orderStatus : order.orderStatus}, function() {
                     console.log('update success');
                     $state.go($state.current, {}, {
                         reload: true
@@ -81,9 +82,12 @@ angular
             }
         }
     ]).controller('deleteOrderModalCtrl',
-        function($scope, $modalInstance, order, Order, orders, state, Product) {
+        function($scope, $modalInstance, order, Order, orders, state, Product, User) {
             $scope.confirm = function() {
-                Order.deleteById(order, function() {
+                User.orders.destroyById({
+                    id: order.userId,
+                    fk: order.id
+                }, function() {
                     Product.findById({
                         id: order.productId
                     }, function(response) {
@@ -104,10 +108,9 @@ angular
                         state.go('error');
                     })
                     $modalInstance.close();
-                }, function() {
+                },function(){
                     state.go('error');
                 });
-
             };
 
             $scope.cancel = function() {
