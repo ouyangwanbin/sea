@@ -7,9 +7,10 @@ module.exports = function(app) {
     var Role = app.models.Role;
     var RoleMapping = app.models.RoleMapping;
     User.count({
-            email: admin.user
+            email: admin.email
         },
         function(err , response) {
+            console.log( response );
             if (response > 0) {
                 console.log('admin already exist.');
                 return false;
