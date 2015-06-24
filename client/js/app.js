@@ -48,9 +48,6 @@ angular
             }).state('error', {
                 url: '/error',
                 templateUrl: 'views/error.html'
-            }).state('userManage', {
-                url: '/userManage',
-                templateUrl: 'views/userManage.html'
             }).state('productManage', {
                 url: '/productManage',
                 templateUrl: 'views/productManage.html',
@@ -60,6 +57,11 @@ angular
                 url: '/orderManage',
                 templateUrl: 'views/orderManage.html',
                 controller:'OrderController',
+                authenticate:true
+            }).state('userManage', {
+                url: '/userManage',
+                templateUrl: 'views/userManage.html',
+                controller:'UserController',
                 authenticate:true
             });
         $urlRouterProvider.otherwise('products');

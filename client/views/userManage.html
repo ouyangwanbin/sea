@@ -1,0 +1,25 @@
+<section>
+    <div class="container">
+        <h2>User List</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color:#B94629;color:white">
+                    <th>User Email</th>
+                    <th>User Address</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.email}}</td>
+                    <td>{{user.address}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="removeUser( user )" ng-hide="user.email == 'admin@gmail.com'">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
