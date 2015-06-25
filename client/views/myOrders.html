@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <h2>My Orders</h2>
+        <h2>My Shopping Cart</h2>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr style="background-color:#B94629">
@@ -34,19 +34,20 @@
         <!--<button type="button" id="buynow" ng-class="{true : 'btn btn-success btn-sm' , false:'btn btn-success btn-sm disabled' }[totalSum > 0]" ng-click="pay( totalSum )">
                             <span class="glyphicon glyphicon-shopping-cart"></span>Pay
                         </button>-->
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_xclick">
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-show="totalSum > 0">
+            <input type="hidden" name="cmd" value="_cart">
+            <input type="hidden" name="upload" value="1">
             <input type="hidden" name="business" value="wouyang-facilitator@actuate.com">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="item_name" value="Payments">
-            <input type="hidden" name="amount" value="{{ totalSum }}">
+            <div ng-repeat="order in orders">
+                <input type="hidden" name="item_name_{{$index+1}}" value="{{order.productName}}">
+                <input type="hidden" name="amount_{{$index+1}}" value="{{order.unitPrice}}">
+                <input type="hidden" name="quantity_{{$index+1}}" value="{{order.unit}}">
+            </div>
+        
             <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="button_subtype" value="services">
-            <input type="hidden" name="no_note" value="0">
-            <input type="hidden" name="cn" value="Add special instructions to the seller:">
-            <input type="hidden" name="no_shipping" value="2">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="http://YOURSITE.com/">
+            <input type="hidden" name="return" value="http://localhost:3000/#/myOrders">
             <input type="hidden" name="cancel_return" value="http://YOURSITE.com/payments.html">
             <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
